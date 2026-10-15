@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>CONTINUUM TESSELLATION · Alpha 04</title><style>
+:root{color-scheme:dark;--ink:#e9f1f7;--muted:#9bb0c0;--ice:#78d7ff;--line:#5b7b90;--bg:#0a1016}*{box-sizing:border-box}body{margin:0;background:#080b10;color:var(--ink);font:12px Arial,sans-serif}.chassis{max-width:1580px;margin:15px auto;padding:17px;background:linear-gradient(125deg,#89949c,#333e48 2%,#161f28 18%,#0d151c 65%,#43505a 99%,#8b969c);border:2px solid #99aab5;border-radius:9px;box-shadow:0 20px 70px #000}.head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:13px}.brand{font-weight:800;font-size:clamp(26px,4vw,52px);letter-spacing:.09em;text-shadow:0 2px 4px #000}.brand em{font-weight:200;font-style:normal;color:#d5e7f2}.sub{letter-spacing:.22em;color:#bad2df;font-size:10px}.screen{margin-left:auto;background:#041420;border:3px solid #819ba9;box-shadow:inset 0 0 20px #000,0 0 15px #1b69803b;padding:11px 16px;min-width:260px;color:#8ce0ff;font:13px monospace}.screen small{display:block;color:#80aabd;margin-top:4px}.btn,select,input[type=number],input[type=text]{background:linear-gradient(#2b3c49,#111a23);color:#edf7ff;border:1px solid #6c899a;border-radius:3px;padding:8px;font-size:11px}.btn{cursor:pointer;letter-spacing:.05em}.btn:hover,.btn.on{border-color:#a2eaff;background:#28485b}.btn:disabled{opacity:.4}.layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:9px}.panel{min-width:0;padding:11px;background:linear-gradient(140deg,#1c2a35,#0c141d);border:1px solid #9caeb9;border-radius:4px;box-shadow:inset 0 1px #ffffff18}.panel h2{margin:0 0 11px;padding-bottom:7px;border-bottom:1px solid #6d899b;letter-spacing:.13em;font-size:11px;color:#c8e8f6}.wide{grid-column:span 12}.half{grid-column:span 6}.third{grid-column:span 4}.quarter{grid-column:span 3}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:7px 0}.row label{color:#b9d4e2;font-size:10px}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:10px}.control{min-width:0;text-align:center}.control label{display:block;font-size:10px;color:#d6e9f2;margin-bottom:6px}.control input[type=range]{width:100%;accent-color:#81d6fb}.control output{font:11px monospace;color:#82d9ff}.layers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.layer{border:1px solid #577b91;background:#0b1b27;padding:10px;min-width:0}.layer.selected{border-color:#b8ecff;box-shadow:inset 0 0 0 1px #68d4ff}.layer button{width:100%;margin-bottom:7px}.layer label{display:block;margin:6px 0;color:#a8c4d4}.layer select{width:100%}.layer input[type=range]{width:100%;accent-color:#83d7ff}.layer .mini{font-size:10px;color:#93b9ce}.enginegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.engine{padding:9px;border:1px solid #506e80;background:#0c1b26}.engine h3{font-size:11px;letter-spacing:.09em;margin:0 0 8px;color:#9bdeff}.engine select{width:100%;margin-bottom:7px}.engine input{width:100%;accent-color:#8cdaff}.engine label{font-size:10px;color:#c7d9e4}.seqhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}.seqwrap{max-height:255px;overflow:auto;border:1px solid #426a81;background:#07131d;padding:9px}.seqgrid{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:5px}.seqcell{min-width:0}.seqcell small{display:block;text-align:center;font-size:9px;color:#9ab4c2}.step{width:100%;height:30px;border:1px solid #50748a;background:#162734;color:#9cc6db;cursor:pointer}.step.on{background:#82d7fa;color:#07141d}.step.play{outline:2px solid #fff}.step.selected{border:2px solid #fff}.matrixlist{max-height:265px;overflow:auto}.route{display:grid;grid-template-columns:1fr 1fr 1fr 34px;gap:5px;margin:5px 0}.route select{min-width:0;width:100%}.route input{width:100%;accent-color:#8edaff}.route button{padding:4px}.keyboard{height:126px;display:flex;position:relative;touch-action:none;user-select:none}.key{flex:1;background:linear-gradient(#fff,#a8b4bc);border:1px solid #3c505d;border-radius:0 0 4px 4px;cursor:pointer}.key.black{position:absolute;z-index:2;top:0;height:62%;width:2%;transform:translateX(-50%);background:linear-gradient(#273847,#02080d);border:1px solid #01060a}.key.down{background:#70c8f0}.key.black.down{background:#2d7fa4}.hint{font-size:10px;color:#a9becb;line-height:1.55}.fxgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.fxslot{border:1px solid #4d7188;padding:6px;background:#0a1b27}.fxslot select{width:100%;font-size:10px}.fxslot input{width:100%;accent-color:#8edaff}.meter{height:12px;background:#08121b;border:1px solid #66869b;overflow:hidden}.meter span{display:block;width:0;height:100%;background:linear-gradient(90deg,#3994bc,#b7edff)}.footer{text-align:center;color:#a6bbc7;font-size:10px;letter-spacing:.15em;margin-top:14px}@media(max-width:1000px){.half,.third,.quarter{grid-column:span 12}.layers{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.chassis{margin:0;padding:8px}.screen{margin-left:0}.enginegrid{grid-template-columns:1fr 1fr}.fxgrid{grid-template-columns:repeat(2,1fr)}.seqgrid{gap:2px}.step{height:25px}.layers{grid-template-columns:1fr 1fr}.brand{font-size:25px}}
+
+/* TESSELLATION ALPHA 02: SILVER HARDWARE SURFACE / MATTE-BLACK ENGINE DEPARTMENT */
+:root{color-scheme:light;--ink:#14191d;--muted:#47515b;--ice:#80c5e6;--line:#929da5;--bg:#cbd1d5}
+body{background:#161a1e;color:#15191d;font-family:Arial,sans-serif}
+.chassis{max-width:1580px;background:linear-gradient(117deg,#f1f3f3 0%,#c7cdd0 13%,#e8ebec 36%,#c3c9cd 72%,#eef0f0 100%);border:3px solid #9da7ad;border-radius:8px;box-shadow:0 18px 65px #000a,inset 0 1px #fff}
+.head{padding:5px 4px 13px;border-bottom:1px solid #889198;margin-bottom:13px}
+.brand{font-size:clamp(19px,2.2vw,30px);font-weight:500;letter-spacing:.19em;text-shadow:none;color:#15191d;line-height:1.1}
+.brand em{font-weight:300;color:#333a40}
+.sub{font-size:10px;letter-spacing:.21em;color:#363e45;margin-top:6px;font-weight:500}
+.screen{background:#071a23;border:3px solid #6e7c85;color:#a8e2f6;box-shadow:inset 0 0 18px #000,0 1px 2px #fff9}
+.screen small{color:#80a9bc}
+.btn,select,input[type=number],input[type=text]{background:linear-gradient(#f6f7f7,#b7c0c5);color:#101820;border:1px solid #7e8b93;border-radius:3px;padding:8px;font-size:11px;box-shadow:inset 0 1px #fff8}
+.btn{font-weight:700;cursor:pointer}.btn:hover,.btn.on{border-color:#4e788b;background:#a4c9d9;color:#0c1c25}
+.panel{background:linear-gradient(145deg,#e8ebed,#c6cdd1);border:1px solid #8a959b;box-shadow:inset 0 1px #fff9,0 2px 5px #68747b26;color:#12171b}
+.panel h2{font-size:11px;color:#1c252c;border-bottom:1px solid #929ca3;letter-spacing:.13em;font-weight:800}
+.row label,.control label,.layer label,.engine label,.hint{color:#252d33}
+.hint{line-height:1.55}.control output{color:#283b47;font-weight:700}
+.layers{gap:8px}.layer{background:linear-gradient(#d7dde0,#b9c3c8);border:1px solid #89959d;border-radius:3px;color:#182129}.layer.selected{border-color:#386e87;box-shadow:inset 0 0 0 2px #6fabc8}.layer label,.layer .mini{color:#28343d}.layer select{width:100%}
+/* Engine modules are the only deliberately matte-black synthesis department */
+.panel:has(> #engines){background:linear-gradient(145deg,#1d2023,#0c0e10);border:1px solid #525c64;color:#e5ebee}
+.panel:has(> #engines) h2{color:#eef3f5;border-color:#626d74}
+.panel:has(> #engines) .hint{color:#b6c4cc}
+.engine{background:linear-gradient(140deg,#23272a,#0b0d0f);border:1px solid #5e686f;border-radius:4px;padding:11px;color:#f0f3f4}
+.engine h3{color:#e3e9ec;font-size:11px;border-bottom:1px solid #434a50;padding-bottom:6px}
+.engine label{color:#d4dde1;display:flex;flex-direction:column;align-items:center;gap:6px;margin:8px 0;font-size:10px;font-weight:600;letter-spacing:.05em}
+.engine select{background:#1d252a;color:#e8f0f3;border-color:#64717a}
+.controls{grid-template-columns:repeat(auto-fit,minmax(75px,1fr));gap:14px 7px}
+.control{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px}
+.control label{order:2;margin:0;min-height:22px;font-size:10px;font-weight:700;letter-spacing:.035em}
+.control output{order:3;font:11px monospace}
+/* Real editable range inputs, visually rendered as rotary hardware knobs */
+.control input[type=range],.engine input[type=range],.fxslot input[type=range],.layer input[type=range]{appearance:none;-webkit-appearance:none;width:55px;height:55px;min-width:55px;min-height:55px;border-radius:50%;border:3px solid #818b91;background:radial-gradient(circle at 35% 28%,#626a70 0%,#30373c 40%,#101519 76%);box-shadow:inset 0 2px 3px #ffffff30,0 3px 5px #0005;transform:rotate(-90deg);cursor:ns-resize;accent-color:#84cce8;margin:0}
+.control input[type=range]::-webkit-slider-thumb,.engine input[type=range]::-webkit-slider-thumb,.fxslot input[type=range]::-webkit-slider-thumb,.layer input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:8px;height:8px;border-radius:50%;background:#e6f1f6;border:1px solid #18232b;box-shadow:0 0 3px #d3efff}
+.control input[type=range]::-moz-range-thumb,.engine input[type=range]::-moz-range-thumb,.fxslot input[type=range]::-moz-range-thumb,.layer input[type=range]::-moz-range-thumb{width:8px;height:8px;border-radius:50%;background:#e6f1f6;border:1px solid #18232b}
+.engine input[type=range]{width:48px;height:48px;min-width:48px;min-height:48px;border-color:#606a71}
+.layer input[type=range],.fxslot input[type=range]{width:37px;height:37px;min-width:37px;min-height:37px;border-width:2px}
+.layer label:has(input[type=range]),.fxslot label:has(input[type=range]){display:flex;align-items:center;justify-content:space-between;gap:8px}
+.layer input[type=range]{display:inline-block;vertical-align:middle}
+.seqwrap{background:#e3e7e9;border:1px solid #87959e}.seqcell small{color:#333f48}.step{background:#aab4bb;border:1px solid #7b8992;color:#18242b}.step.on{background:#243e4c;color:#e4f4fb}.step.play,.step.selected{outline-color:#1a394c;border-color:#2c556c}
+.matrixlist{background:#d9e0e3;border:1px solid #9aa5ac;padding:6px}.route{border-bottom:1px solid #b0b9bd;padding-bottom:5px}
+.fxslot{background:#d5dcdf;border:1px solid #919ea6}.fxslot label{color:#1e2a31}
+.meter{background:#8d9aa3;border-color:#74838c}.meter span{background:linear-gradient(90deg,#305d73,#84c6e4)}
+.footer{color:#303d46}
+@media(max-width:600px){.brand{font-size:21px;letter-spacing:.12em}.controls{grid-template-columns:repeat(3,minmax(0,1fr))}.enginegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.control input[type=range]{width:48px;height:48px;min-width:48px;min-height:48px}}
+</style><style>
+/* TESSELLATION ALPHA 04 — dedicated matrix-centred physical workstation */
+:root{--tess-edge:#8b969c;--tess-ink:#1a252c;--tess-accent:#356b80}
+body{font-family:'Trebuchet MS','Segoe UI',sans-serif;background:radial-gradient(ellipse at 50% 0%,#323c42,#111619 65%)}
+.chassis{max-width:1500px;background:linear-gradient(130deg,#edf0f0,#cbd2d5 14%,#e8ecec 48%,#b9c2c6 82%,#edf0f0);border-radius:13px;padding:20px;box-shadow:0 22px 80px #000b,inset 0 2px #fff}
+.head{min-height:88px;align-items:center}
+.brand{font-size:clamp(17px,1.8vw,25px);letter-spacing:.12em;font-weight:600}
+.brand em{font-weight:600;color:#293b45}
+.sub{font-size:9px;letter-spacing:.15em}
+.layout{grid-template-columns:repeat(12,minmax(0,1fr));gap:11px}
+.panel{border-radius:7px;padding:13px;background:linear-gradient(145deg,#f1f3f3,#cbd3d6);box-shadow:inset 0 1px #fff,0 3px 7px #48545c22}
+.panel h2{font-size:10px;letter-spacing:.12em}
+.panel[data-department='layers']{grid-column:span 12}
+.panel[data-department='crossMatrix']{grid-column:span 12;background:linear-gradient(140deg,#17252d,#0a141b 70%,#243a45);color:#e8f0f2;border:2px solid #587c8d;box-shadow:inset 0 0 0 1px #c7e7f333,0 5px 15px #101e2944;padding:18px}
+.panel[data-department='crossMatrix'] h2{color:#e7f3f7;border-bottom:1px solid #5e899c;font-size:12px;letter-spacing:.18em}
+.panel[data-department='crossMatrix'] .hint{color:#a8c6d3}
+.panel[data-department='crossMatrix'] .btn{background:linear-gradient(#456273,#1d3542);color:#eefaff;border-color:#7097a9}
+#crossMatrix{background:linear-gradient(145deg,#172b36,#10202a);border:1px solid #476c7e;border-radius:6px;padding:14px;gap:9px!important}
+#crossMatrix strong{color:#c7e8f5;letter-spacing:.08em}
+#crossMatrix small{color:#a8d3e5}
+#crossMatrix input[type=range]{accent-color:#81c9e4}
+.panel[data-department='engines']{grid-column:span 8}
+.panel[data-department='filterControls']{grid-column:span 4}
+.panel[data-department='modControls']{grid-column:span 4}
+.panel[data-department='routes']{grid-column:span 8}
+.panel[data-department='seqgrid']{grid-column:span 12}
+.panel[data-department='fxslots'],.panel[data-department='presets']{grid-column:span 6}
+.panel[data-department='keyboard']{grid-column:span 12}
+/* Restore pale metal on synthesis department, retaining dark individual engine cells */
+.panel:has(> #engines){background:linear-gradient(145deg,#e9eded,#cbd2d6);border:1px solid #8a959b;color:#1c252c}
+.panel:has(> #engines) h2{color:#1c252c;border-color:#a1acb2}
+.panel:has(> #engines) .hint{color:#33454f}
+.enginegrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.engine{border-radius:7px}
+.layers{grid-template-columns:repeat(4,minmax(0,1fr))}
+.layer{border-radius:6px}
+.footer{font-size:9px;letter-spacing:.12em}
+@media(max-width:1050px){.panel[data-department='engines'],.panel[data-department='filterControls'],.panel[data-department='modControls'],.panel[data-department='routes']{grid-column:span 6}}
+@media(max-width:700px){.chassis{margin:0;padding:9px;border-radius:0}.panel[data-department]{grid-column:span 12}.layers{grid-template-columns:repeat(2,minmax(0,1fr))}.enginegrid{grid-template-columns:repeat(2,minmax(0,1fr))}#crossMatrix{padding:5px;gap:3px!important;grid-template-columns:70px repeat(6,minmax(50px,1fr))!important;overflow-x:auto}.brand{font-size:18px}.screen{min-width:200px}}
+
+/* TESSELLATION CONSOLIDATED — ONE COHERENT PHYSICAL CONTROL SYSTEM */
+.engine-parameters,.engine-model-extra{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 5px;margin-top:8px;padding-top:8px;border-top:1px solid #596c78}
+.engine-primary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;align-items:start}.engine-primary label{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}.engine-model-extra{margin-top:7px}.engine .engine-control{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;margin:0;min-width:0;text-align:center;font-size:8px;line-height:1.2;letter-spacing:0;overflow-wrap:anywhere}
+.engine-control output{font:8px monospace;color:#9cdcf3;float:none;order:3}
+.engine .engine-control input[type=range]{display:block;width:32px;height:32px;min-width:32px;min-height:32px;border:2px solid #606a71;border-radius:50%;background:radial-gradient(circle at 35% 28%,#626a70 0%,#30373c 40%,#101519 76%);transform:rotate(-90deg);box-shadow:inset 0 2px 3px #ffffff30,0 3px 5px #0005;cursor:ns-resize;order:2;margin:0}
+.cross-cell{min-width:0;text-align:center;border:1px solid #426678;border-radius:5px;padding:4px 5px;background:rgba(68,107,128,.10)}
+.cross-cell.feedback-cell{background:rgba(123,163,180,.19);border-color:#7596a5}
+.cross-cell input{width:100%;min-width:0;accent-color:#63a6ca;margin:0}
+.cross-cell.feedback-cell input{accent-color:#a1c9d7}
+.cross-cell small{display:block;font-size:9px}
+.panel[data-department='engines']{grid-column:span 8}
+.voice-side{grid-column:span 4;display:flex;flex-direction:column;gap:9px;min-width:0}
+.voice-side .panel{width:100%;min-width:0;padding:10px}
+.voice-side .panel[data-department='modControls'] .controls{gap:7px 4px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.voice-side .panel[data-department='modControls'] .control input[type=range]{width:39px;height:39px;min-width:39px;min-height:39px}
+.voice-side .panel[data-department='routes'] .matrixlist{max-height:190px;overflow-y:auto}
+.voice-side .panel[data-department='presets'],.voice-side .panel[data-department='fxslots']{width:100%}
+.voice-side .panel[data-department='fxslots'] .fxgrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+.voice-side .panel[data-department='fxslots'] .fxslot{padding:3px;min-width:0}
+.voice-side .panel[data-department='fxslots'] .fxslot select{padding:3px 1px;font-size:9px}
+.voice-side .panel[data-department='fxslots'] .fxslot input[type=range]{width:28px;height:28px;min-width:28px;min-height:28px}
+.voice-side .panel[data-department='fxslots'] .fxslot label{font-size:8px;flex-wrap:wrap}
+.voice-side .panel[data-department='presets'] input[type=text]{max-width:180px;width:100%}
+.voice-side .panel[data-department='filterControls'] .controls{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px 2px}
+.voice-side .panel[data-department='filterControls'] .control label{font-size:8px;min-height:21px;line-height:1.2}
+.voice-side .panel[data-department='filterControls'] .control input[type=range]{width:35px;height:35px;min-width:35px;min-height:35px}
+.filter-macro-selects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:8px 0}
+.filter-macro-selects label{display:flex;flex-direction:column;gap:3px;font-size:9px;min-width:0}
+.filter-macro-selects select{width:100%;min-width:0;padding:5px 2px;font-size:9px}
+.voice-side .panel .row{gap:5px;flex-wrap:wrap}
+.voice-side .panel .row label{font-size:9px}
+.layer{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:6px 8px;padding:9px}
+.layer>.btn{grid-column:1 / -1}
+.layer>label:has(input[type=checkbox]){grid-column:1 / -1}
+.layer label:has(input[type=range]){display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;margin:0;font-size:10px}
+.layer-stereo{grid-column:1 / -1;display:grid;grid-template-columns:12px 1fr;gap:3px 5px;align-items:center;margin-top:4px;font:9px monospace;color:#293c48}
+.layer-meter-track{height:7px;border:1px solid #6e7e88;background:#85949d;border-radius:2px;overflow:hidden}
+.layer-meter-track i{display:block;width:0;height:100%;background:linear-gradient(90deg,#2e667e,#91d2e8);transition:width 70ms linear}
+.layer .mini{grid-column:1 / -1;text-align:center;font-size:9px}
+@media(max-width:1050px){.panel[data-department='engines']{grid-column:span 7}.voice-side{grid-column:span 5}}
+@media(max-width:700px){.panel[data-department='engines'],.voice-side{grid-column:span 12}.voice-side .panel[data-department='modControls'] .controls{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style></head><body><div class="chassis"><header class="head"><div><div class="brand">CONTINUUM <em>TESSELLATION</em></div><div class="sub">INTERACTIVE CROSS-SYNTHESIS WORKSTATION · CONSOLIDATION 4</div></div><div class="screen" id="display">T002 · TESSELLATION INIT<small>READY · ACTIVATE AUDIO</small></div><button class="btn" id="activate">ACTIVATE AUDIO</button><button class="btn" id="panic">ALL NOTES OFF</button></header><main class="layout">
+
+
+
+
+
+
+
+
+
+
+<section class="panel wide" data-department="layers"><h2>FOUR-LAYER PERFORMANCE · 16-VOICE SHARED POLYPHONY</h2><div class="layers" id="layers"></div><div class="row"><label>EDIT LAYER <select id="editLayer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></label><label>MASTER <input id="master" max="1" min="0" step=".01" type="range" value=".65"/></label><span class="hint" id="voiceCount">0 / 16 voices</span></div></section><section class="panel wide" data-department="crossMatrix"><h2>TESSELLATION · AUDIO-RATE CROSS-SYNTHESIS MATRIX</h2>
+<div class="hint">REFINED DSP MODELS AVAILABLE IN ALL SIX SLOTS, INCLUDING UNISON, WAVETABLE MORPHING, ADDITIVE PARTIAL DECAY, WAVEFOLDING, PLUCKED STRING AND CROSS-MODULATION. Each cell routes the audio signal of one synthesis engine into the frequency input of another. Rows are sources, columns are destinations. All 36 directional routes are available; tinted cells indicate delayed reverse or self-feedback. Values are bipolar and genuinely affect the sound, not merely the display.</div>
+<div class="row"><button class="btn" id="crossClear">CLEAR MATRIX</button><button class="btn" id="crossExample">LOAD INTERACTION</button><span class="hint" id="crossStatus">0 active cross-routes</span></div>
+<div id="crossMatrix" style="display:grid;grid-template-columns:100px repeat(6,minmax(0,1fr));gap:5px;align-items:center;overflow-x:auto"></div>
+</section><section class="panel half" data-department="engines"><h2>SIX-ENGINE VOICE GENERATOR · SELECTED LAYER</h2><div class="enginegrid" id="engines"></div><div class="hint">Six blendable slots per voice, each independently selectable from eleven DSP models including unison analogue, morphing wavetable, FM, additive partials, wavefolding, plucked-string physical modelling and cross-modulation. Browser-native synthesis; no external samples required.</div></section><div class="voice-side" aria-label="Voice processing and modulation"><section class="panel half" data-department="filterControls"><h2>DUAL VOICE FILTERS &amp; DIGITAL FORMER</h2><div class="controls" id="filterControls"></div><div class="row"><label>FILTER 1 <select id="filterType1"><option value="lowpass">LOWPASS</option><option value="highpass">HIGHPASS</option><option value="bandpass">BANDPASS</option><option value="notch">NOTCH</option><option value="comb">COMB</option></select></label><label>FILTER 2 <select id="filterType2"><option value="lowpass">LOWPASS</option><option value="highpass">HIGHPASS</option><option value="bandpass">BANDPASS</option><option value="notch">NOTCH</option><option value="comb">COMB</option></select></label></div><div class="row"><label>ROUTING <select id="filterRouting"><option value="serial">SERIAL</option><option value="parallel">PARALLEL</option></select></label><label>FORMER <select id="former"><option value="off">OFF</option><option value="drive">DRIVE</option><option value="bit">BIT CRUSH</option><option value="ring">RING</option><option value="comb">COMB</option><option value="formant">FORMANT</option></select></label></div><div class="filter-macro-selects">
+<label>FM / RING MODE<select id="fmRingMode"><option value="off">OFF</option><option value="linear">FM LINEAR</option><option value="exponential">FM EXPONENTIAL</option><option value="ring">RING MODULATION</option></select></label>
+<label>WAVETABLE MODE<select id="wavetableMode"><option value="off">OFF</option><option value="position">POSITION</option><option value="scan">SCAN</option></select></label>
+<label>RANDOM TYPE<select id="randomType"><option value="off">OFF</option><option value="chaos">CHAOS</option><option value="probability">PROBABILITY</option><option value="gate">GATE</option><option value="walk">RANDOM WALK</option><option value="smooth">SMOOTH</option><option value="binary">RANDOM BINARY</option><option value="turing">TURING</option><option value="samplehold">SAMPLE &amp; HOLD</option><option value="voice">VOICE MODULATOR</option></select></label>
+<label>RETRIGGER MODE<select id="retriggerMode"><option value="off">OFF</option><option value="pulse">PULSE</option><option value="triplet">TRIPLET</option><option value="ratchet">RATCHET</option><option value="swell">SWELL</option><option value="tremolo">TREMOLO</option></select></label>
+</div><div class="hint">Original Web Audio filter algorithms; not emulations of proprietary Waldorf filter models.</div></section><section class="panel half" data-department="modControls"><h2>SIX ENVELOPES · SIX LFOS</h2><div class="controls" id="modControls"></div><div class="row"><label>MOD BANK <select id="modBank"><option value="env">ENVELOPES 1–6</option><option value="lfo">LFOS 1–6</option></select></label><label>SELECT <select id="modIndex"></select></label></div><div class="hint">Each layer stores six envelope configurations and six independent LFOs. Envelope 1 shapes amplitude; the others are available to the modulation matrix.</div></section><section class="panel half" data-department="routes"><h2>MODULATION MATRIX · 40 SLOTS PER LAYER</h2><div class="row"><button class="btn" id="addRoute">ADD MODULATION ROUTE</button><button class="btn" id="clearRoutes">CLEAR ROUTES</button><span class="hint" id="routeCount">0 / 40 routes</span></div><div class="matrixlist" id="routes"></div><div class="hint">Bipolar depth. Sources include six LFOs, six envelopes, velocity, key tracking, note gate, sequencer and random. Destinations include engine levels, pitch, filter cutoffs, resonance, pan, and effect sends.</div></section><section class="panel half" data-department="presets"><h2>FACTORY PATCH LIBRARY · USER MEMORY</h2><div class="row"><label>FACTORY PRESET <select id="presets" style="max-width:280px"></select></label><button class="btn" id="recall">RECALL</button></div><div class="row"><label>PATCH NAME <input id="patchName" type="text" value="TESSELLATION INIT"/></label><button class="btn" id="save">SAVE LOCAL</button><button class="btn" id="load">LOAD LOCAL</button></div><div class="row"><button class="btn" id="export">EXPORT JSON</button><button class="btn" id="import">IMPORT JSON</button><input accept=".json,application/json" hidden="" id="importFile" type="file"/></div><div class="row"><div class="meter" style="width:100%"><span id="levelMeter"></span></div></div><div class="hint">64 original algorithmic factory patches, plus browser-local memory and portable JSON. Audio begins after a user gesture. Best experienced with headphones on a desktop browser.</div></section><section class="panel half" data-department="fxslots"><h2>FIVE INSERT EFFECTS · PER-LAYER STORAGE</h2><div class="fxgrid" id="fxslots"></div><div class="hint">Five serial effect slots per layer. Reverb, delay, chorus, phaser, drive and bypass. Changing layers recalls each layer's own effect chain.</div></section></div><section class="panel half" data-department="seqgrid"><h2>64-STEP POLYPHONIC SEQUENCER · NOTE PARAMETER LOCKS</h2><div class="seqhead"><div class="row"><button class="btn" id="seqPlay">PLAY</button><button class="btn" id="seqClear">CLEAR</button><button class="btn" id="seqRandom">RANDOM</button><label>BPM <input id="bpm" max="240" min="40" type="number" value="112"/></label><label>STEPS <select id="seqLength"><option>16</option><option>32</option><option selected="">64</option></select></label></div><div class="row"><label>ROOT <select id="root"><option value="24">C1</option><option value="25">C♯1</option><option value="26">D1</option><option value="27">E♭1</option><option value="28">E1</option><option value="29">F1</option><option value="30">F♯1</option><option value="31">G1</option><option value="32">A♭1</option><option value="33">A1</option><option value="34">B♭1</option><option value="35">B1</option><option value="36">C2</option><option value="37">C♯2</option><option value="38">D2</option><option value="39">E♭2</option><option value="40">E2</option><option value="41">F2</option><option value="42">F♯2</option><option value="43">G2</option><option value="44">A♭2</option><option value="45">A2</option><option value="46">B♭2</option><option value="47">B2</option><option value="48" selected="">C3</option><option value="49">C♯3</option><option value="50">D3</option><option value="51">E♭3</option><option value="52">E3</option><option value="53">F3</option><option value="54">F♯3</option><option value="55">G3</option><option value="56">A♭3</option><option value="57">A3</option><option value="58">B♭3</option><option value="59">B3</option><option value="60">C4</option><option value="61">C♯4</option><option value="62">D4</option><option value="63">E♭4</option><option value="64">E4</option><option value="65">F4</option><option value="66">F♯4</option><option value="67">G4</option><option value="68">A♭4</option><option value="69">A4</option><option value="70">B♭4</option><option value="71">B4</option><option value="72">C5</option><option value="73">C♯5</option><option value="74">D5</option><option value="75">E♭5</option><option value="76">E5</option><option value="77">F5</option><option value="78">F♯5</option><option value="79">G5</option><option value="80">A♭5</option><option value="81">A5</option><option value="82">B♭5</option><option value="83">B5</option><option value="84">C6</option></select></label><label>ARP <select id="arpMode"><option value="off">OFF</option><option value="up">UP</option><option value="down">DOWN</option><option value="updown">UP / DOWN</option><option value="random">RANDOM</option></select></label></div></div><div class="seqwrap"><div class="seqgrid" id="seqgrid"></div></div><div class="row"><label>EDIT STEP <input id="stepNumber" max="64" min="1" type="number" value="1"/></label><label>NOTES <input id="stepNotes" placeholder="0,4,7" type="text" value="0,4,7"/></label><label>GATE <input id="stepGate" max="1" min=".1" step=".05" type="range" value=".7"/></label><button class="btn" id="applyStep">SET STEP</button><button class="btn" id="restStep">REST</button></div><div class="row"><label>LOCK PARAM <select id="lockParam"></select></label><label>VALUE <input id="lockValue" max="1" min="0" step=".01" type="range" value=".5"/></label><button class="btn" id="setLock">SET LOCK</button><button class="btn" id="clearLocks">CLEAR LOCKS</button><span class="hint" id="lockCount">0 / 16 locks</span></div><div class="hint">Click a step to select it; double-click to toggle rest. Enter comma-separated chord intervals (e.g. 0,4,7). Each step stores up to 16 parameter locks applied to notes triggered on that step. Arpeggiator cycles held notes when the sequencer is stopped.</div></section><section class="panel wide" data-department="keyboard"><h2>POLYPHONIC PERFORMANCE KEYBOARD · THREE OCTAVES</h2><div class="row"><label>OCTAVE <select id="octave"><option value="36">C2</option><option selected="" value="48">C3</option><option value="60">C4</option></select></label><label><input id="hold" type="checkbox"/> HOLD NOTES</label><span class="hint">Computer keys: A W S E D F T G Y H U J K · Multiple simultaneous notes supported</span></div><div class="keyboard" id="keyboard"></div></section></main><div class="footer">CONTINUUM TESSELLATION · RHODIUM V2 · CONSOLIDATION 7 · CHROMATIC SEQUENCER ROOT · ORIGINAL WEB AUDIO ENGINE</div></div><script>
+'use strict';const $=id=>document.getElementById(id),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),names=['VA','WAVETABLE','FM / PHASE','MICROGRAINS','RESONATOR','SEEDS / SUB'];let ctx,master,compressor,analyser,selected=0,voices=[],seqTimer=null,seqPos=0,arpTimer=null,arpIndex=0,held=new Map(),pointerHeld=new Map(),voiceSerial=0;const MAX_VOICES=16;const MAX_RELEASE_TAIL=.18;
+// Original cross-matrix configuration: all 36 source/target routes OFF by default.
+const makeLayer=()=>({cross:Array.from({length:6},()=>Array(6).fill(0)),enabled:true,volume:.55,pan:0,engines:[{type:'va',level:.45,param:.5},{type:'wavetable',level:.2,param:.45},{type:'fm',level:.2,param:.3},{type:'grain',level:.1,param:.5},{type:'resonator',level:.15,param:.45},{type:'seed',level:.15,param:.5}],filter1:6500,filter2:14000,res:1.1,combFeedback:.35,resEnvDepth:0,resLfoDepth:0,fmRingDepth:0,wavetableMotion:0,randomDepth:0,retriggerDepth:0,fmRingMode:'off',wavetableMode:'off',randomType:'off',retriggerMode:'off',type1:'lowpass',type2:'lowpass',routing:'serial',former:'off',envs:Array.from({length:6},(_,i)=>({attack:i? .08:.015,decay:.3,sustain:.65,release:.45})),lfos:Array.from({length:6},(_,i)=>({rate:.3+i*.27,depth:.35,shape:'sine'})),routes:[],fx:Array.from({length:5},(_,i)=>({type:i===0?'chorus':i===1?'delay':i===2?'reverb':'off',mix:i===0?.13:i===1?.12:i===2?.16:0})),fxNode:null});let layers=Array.from({length:4},makeLayer);layers[1].enabled=false;layers[2].enabled=false;layers[3].enabled=false;
+let steps=Array.from({length:64},(_,i)=>({notes:i%4===0?[0,4,7]:i%4===2?[7]:[],gate:.7,locks:{}})),selectedStep=0;const lockParams=['FILTER 1','FILTER 2','RESONANCE','PITCH','PAN','ENGINE 1','ENGINE 2','ENGINE 3','ENGINE 4','ENGINE 5','ENGINE 6','DELAY SEND','REVERB SEND','GRAIN DENSITY','FM INDEX','SEED MOTION'];const modSources=['LFO 1','LFO 2','LFO 3','LFO 4','LFO 5','LFO 6','ENV 1','ENV 2','ENV 3','ENV 4','ENV 5','ENV 6','VELOCITY','KEY TRACK','GATE','SEQUENCE','RANDOM'];const modTargets=['FILTER 1','FILTER 2','RESONANCE','PITCH','PAN','ENGINE 1','ENGINE 2','ENGINE 3','ENGINE 4','ENGINE 5','ENGINE 6','DELAY SEND','REVERB SEND'];
+function message(a,b=''){ $('display').innerHTML=String(a).replaceAll('<','&lt;')+'<small>'+String(b).replaceAll('<','&lt;')+'</small>'}function setAudio(){if(!ctx)return;master.gain.setTargetAtTime(+$('master').value*.65,ctx.currentTime,.02)}
+function impulse(){let len=ctx.sampleRate*1.6,b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){let d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}return b}
+function makeFX(type,mix){let input=ctx.createGain(),output=ctx.createGain(),dry=ctx.createGain(),wet=ctx.createGain();dry.gain.value=1-mix;wet.gain.value=mix;input.connect(dry);dry.connect(output);let nodes=[input,output,dry,wet];if(type==='off'){input.connect(output);return {input,output,nodes}}let effect;if(type==='delay'){let d=ctx.createDelay(1.5),f=ctx.createGain();d.delayTime.value=.32;f.gain.value=.27;input.connect(d);d.connect(f);f.connect(d);effect=d;nodes.push(d,f)}else if(type==='reverb'){effect=ctx.createConvolver();effect.buffer=impulse();input.connect(effect);nodes.push(effect)}else if(type==='drive'){effect=ctx.createWaveShaper();let curve=new Float32Array(2048);for(let i=0;i<curve.length;i++){let x=(i/(curve.length-1))*2-1;curve[i]=Math.tanh(x*4)}effect.curve=curve;effect.oversample='2x';input.connect(effect);nodes.push(effect)}else if(type==='chorus'||type==='phaser'){effect=type==='chorus'?ctx.createDelay(.08):ctx.createBiquadFilter();if(type==='chorus'){effect.delayTime.value=.019}else{effect.type='allpass';effect.frequency.value=900;effect.Q.value=.8}input.connect(effect);let lfo=ctx.createOscillator(),gain=ctx.createGain();lfo.frequency.value=type==='chorus'?.8:.4;gain.gain.value=type==='chorus'?.008:500;lfo.connect(gain);gain.connect(type==='chorus'?effect.delayTime:effect.frequency);lfo.start();nodes.push(effect,lfo,gain)}else{input.connect(output);return {input,output,nodes}}effect.connect(wet);wet.connect(output);return {input,output,nodes}}
+function disposeFXGraph(l){if(!l||!l.fxNode)return;for(const n of l.fxNode.nodes){try{if(typeof n.stop==='function')n.stop()}catch(e){}try{n.disconnect()}catch(e){}}l.fxNode=null}
+function replaceLayers(next){const old=layers;layers=next;if(ctx){old.forEach(disposeFXGraph);layers.forEach((_,i)=>rebuildFX(i))}}
+function rebuildFX(i){if(!ctx)return;let l=layers[i];if(l.fxNode){try{l.fxNode.input.disconnect()}catch(e){}for(let n of l.fxNode.nodes){try{if(typeof n.stop==='function')n.stop()}catch(e){}try{n.disconnect()}catch(e){}}}let input=ctx.createGain(),last=input,nodes=[input];for(let s of l.fx){let e=makeFX(s.type,s.mix);last.connect(e.input);last=e.output;nodes.push(...e.nodes)}let pan=ctx.createStereoPanner();pan.pan.value=l.pan;last.connect(pan);pan.connect(master);let split=ctx.createChannelSplitter(2),meterL=ctx.createAnalyser(),meterR=ctx.createAnalyser();meterL.fftSize=256;meterR.fftSize=256;pan.connect(split);split.connect(meterL,0);split.connect(meterR,1);nodes.push(pan,split,meterL,meterR);l.fxNode={input,nodes,pan,meterL,meterR}}
+async function activate(){if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-12;compressor.ratio.value=8;analyser=ctx.createAnalyser();analyser.fftSize=256;master.connect(compressor);compressor.connect(analyser);analyser.connect(ctx.destination);layers.forEach((_,i)=>rebuildFX(i));requestAnimationFrame(meter)}await ctx.resume();setAudio();$('activate').textContent='AUDIO ACTIVE';$('activate').classList.add('on');message('TESSELLATION ONLINE','POLYPHONIC ENGINE ACTIVE')}
+function meter(){
+ const rms=a=>{let buf=new Float32Array(a.fftSize);a.getFloatTimeDomainData(buf);let sum=0;for(let x of buf)sum+=x*x;return Math.sqrt(sum/buf.length)};
+ if(analyser){let v=rms(analyser);$('levelMeter').style.width=Math.min(100,v*260)+'%'}
+ for(let i=0;i<4;i++){let fx=layers[i].fxNode;if(!fx)continue;let left=document.querySelector('[data-meter-l="'+i+'"]'),right=document.querySelector('[data-meter-r="'+i+'"]');if(left)left.style.width=Math.min(100,rms(fx.meterL)*340)+'%';if(right)right.style.width=Math.min(100,rms(fx.meterR)*340)+'%'}
+ requestAnimationFrame(meter)
+}
+function waveData(){let len=2048,real=new Float32Array(len/2+1),imag=new Float32Array(len/2+1);for(let n=1;n<=48;n++)imag[n]=(n%2?1:-.7)/Math.pow(n,1.15);return ctx.createPeriodicWave(real,imag,{disableNormalization:false})}let tableWave;
+// ALPHA 04: integrated DSP refinement; all models participate in the original voice and cross-synthesis graph.
+const harmonicWave=(fn,n=32)=>{const re=new Float32Array(n+1),im=new Float32Array(n+1);for(let k=1;k<=n;k++)im[k]=fn(k);return ctx.createPeriodicWave(re,im)};
+let excitationNoise=null,excitationRate=0;
+function excitation(){if(!excitationNoise||excitationRate!==ctx.sampleRate){excitationRate=ctx.sampleRate;excitationNoise=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);let d=excitationNoise.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}return excitationNoise}
+const engineControls={"va": [["detune", "Unison Detune", 0, 35, 12], ["sub", "Sub Level", 0, 1, 0.3], ["filter", "Acid Cutoff", 100, 12000, 3200], ["res", "Acid Resonance", 0.1, 15, 4], ["slide", "Slide Time", 0, 0.5, 0.05]], "wavetable": [["morph", "Table Morph", 0, 1, 0.5], ["harmonic", "8 Harmonic Layer", 0, 1, 0], ["sweep", "Morph Envelope", 0, 1, 0.3]], "fm": [["ratio", "Operator Ratio", 0.5, 8, 2], ["index", "FM Index", 0, 8, 2], ["decay", "Index Decay", 0.02, 3, 0.5]], "feedbackfm": [["ratio", "Operator Ratio", 0.5, 8, 2], ["index", "FM Index", 0, 8, 2], ["decay", "Index Decay", 0.02, 3, 0.5]], "wavefold": [["fold", "Fold Depth", 0, 1, 0.5], ["env", "Fold Envelope", 0, 1, 0.4], ["decay", "Fold Decay", 0.02, 3, 0.5]], "string": [["damp", "Damping", 0, 1, 0.5], ["sustain", "Loop Feedback", 0.85, 0.999, 0.98], ["burst", "Excitation Burst", 0.002, 0.06, 0.02]], "additive": [["stretch", "Inharmonicity", 0, 0.003, 0.0004], ["tilt", "Partial Slope", 0.5, 2.5, 1.2], ["decay", "Partial Decay", 0.02, 3, 0.7]], "crossmod": [["ratio", "Modulator Ratio", 0.5, 8, 2], ["forward", "Forward FM", 0, 4, 1.5], ["reverse", "Reverse FM", 0, 4, 0.4], ["ring", "Ring Level", 0, 1, 0.3]]};
+const sharedEngineControls=[
+ ['detune','Unison Detune',0,35,12],['sub','Sub Level',0,1,.3],
+ ['filter','Acid Cutoff',100,12000,3200],['res','Acid Resonance',.1,15,4],
+ ['slide','Slide Time',0,.5,.05],['morph','Table Morph',0,1,.5],
+ ['harmonic','8 Harmonic Layer',0,1,0],['sweep','Morph Envelope',0,1,.3],
+ ['ratio','Operator Ratio',.5,8,2],['index','FM Index',0,8,2],
+ ['decay','Index Decay',.02,3,.5]
+];
+const engineDefaults=Object.fromEntries(sharedEngineControls.map(([k,, , ,def])=>[k,def]));
+function engineParam(e,k){const d=sharedEngineControls.find(v=>v[0]===k)||(engineControls[e.type]||[]).find(v=>v[0]===k);return e.params&&Number.isFinite(e.params[k])?e.params[k]:(d?d[4]:0)}
+function engineNode(v,engine,index,f,t){
+ const level=engine.level;if(level<=.001)return;
+ const type=engine.type,p=clamp(engine.param,0,1),g=ctx.createGain();g.gain.value=level/6;g.connect(v.pre);v.nodes.push(g);v.crossOutputs[index]=g;v.engineGains[index]=g;
+ // Shared DSP bank: every engine slot receives the same eleven-parameter signal architecture.
+ // Model-native parameters retain their original synthesis implementation; nonnative models
+ // receive complementary processing so none of the common controls is a dead knob.
+ const nativeVA=type==='va',nativeWT=type==='wavetable',nativeFM=type==='fm'||type==='feedbackfm';
+ if(!nativeVA){
+   const acid=ctx.createBiquadFilter();acid.type='lowpass';acid.frequency.value=clamp(engineParam(engine,'filter'),100,12000);acid.Q.value=engineParam(engine,'res');
+   g.disconnect();g.connect(acid);acid.connect(v.pre);v.nodes.push(acid);
+ }
+ // Morph and envelope shaping on non-wavetable sources.
+ if(!nativeWT){
+   const m=engineParam(engine,'morph'),sweep=engineParam(engine,'sweep');
+   const sh=ctx.createBiquadFilter();sh.type='peaking';sh.frequency.value=350+5000*m;sh.Q.value=1.2;sh.gain.setValueAtTime((m-.5)*10,t);sh.gain.linearRampToValueAtTime((m-.5)*10+sweep*8,t+.65);
+   if(!nativeVA){const original=v.nodes[v.nodes.length-1];/* connect a parallel morph colour branch */}
+   g.connect(sh);const wet=ctx.createGain();wet.gain.value=.16;sh.connect(wet);wet.connect(v.pre);v.nodes.push(sh,wet);
+ }
+ const osc=(wave,hz,output=g,volume=1,cents=0)=>{let o=ctx.createOscillator();if(typeof wave==='string')o.type=wave;else o.setPeriodicWave(wave);o.frequency.value=hz;o.detune.value=cents;let a=ctx.createGain();a.gain.value=volume;o.connect(a);a.connect(output);o.start(t);v.nodes.push(o,a);v.oscs.push({o,engine:index,factor:hz/f,cents});if(!v.crossCarriers[index])v.crossCarriers[index]=o;return o};
+ if(type==='va'){
+   // Three detuned oscillators, with subtle randomised per-note analogue drift.
+   const spread=engineParam(engine,'detune'),w=p<.35?'sawtooth':p<.7?'square':'triangle';
+   for(let i=-1;i<=1;i++)osc(w,f,g,.36,i*spread+(Math.random()-.5)*3);if(engineParam(engine,'sub')>0)osc('sine',f/2,g,engineParam(engine,'sub')*.45);const acid=ctx.createBiquadFilter();acid.type='lowpass';acid.frequency.setValueAtTime(Math.min(18000,engineParam(engine,'filter')*2),t);acid.frequency.setTargetAtTime(engineParam(engine,'filter'),t+.01,.12);acid.Q.value=engineParam(engine,'res');g.disconnect();g.connect(acid);acid.connect(v.pre);v.nodes.push(acid);for(let o of v.oscs.filter(o=>o.engine===index)){let hz=o.o.frequency.value;if(engineParam(engine,'slide')>.002){o.o.frequency.setValueAtTime(hz*.96,t);o.o.frequency.exponentialRampToValueAtTime(hz,t+engineParam(engine,'slide'))}}
+ }else if(type==='wavetable'){
+   // Two complementary harmonic tables crossfaded by the CHARACTER control.
+   const A=harmonicWave(k=>1/Math.pow(k,1.05)),B=harmonicWave(k=>k%2?1/Math.pow(k,.82):0);
+   const m=engineParam(engine,'morph'),sweep=engineParam(engine,'sweep'),a=ctx.createGain(),b=ctx.createGain();a.gain.setValueAtTime(1-m,t);b.gain.setValueAtTime(m,t);a.gain.linearRampToValueAtTime(Math.max(0,1-m-sweep*.6),t+.8);b.gain.linearRampToValueAtTime(Math.min(1,m+sweep*.6),t+.8);a.connect(g);b.connect(g);v.nodes.push(a,b);osc(A,f,a,1);osc(B,f,b,1);if(engineParam(engine,'harmonic')>.001)osc(harmonicWave(k=>k<=8?1/k:0,8),f,g,engineParam(engine,'harmonic')*.5);
+ }else if(type==='fm'||type==='feedbackfm'){
+   const car=osc('sine',f),mod=ctx.createOscillator(),mg=ctx.createGain();
+   mod.frequency.value=f*engineParam(engine,'ratio');
+   if(type==='feedbackfm')mod.setPeriodicWave(harmonicWave(k=>Math.pow(p,k-1)/k,16));
+   mg.gain.setValueAtTime(f*engineParam(engine,'index'),t);
+   mg.gain.setTargetAtTime(f*.015,t+.04,engineParam(engine,'decay'));
+   mod.connect(mg);mg.connect(car.frequency);mod.start(t);v.nodes.push(mod,mg);
+ }else if(type==='additive'){
+   // Sixteen independently decaying, slightly inharmonic partials.
+   g.gain.value=level/13;
+   for(let k=1;k<=16;k++){
+     let hz=f*k*Math.sqrt(1+engineParam(engine,'stretch')*k*k);if(hz>18000)break;
+     let pg=ctx.createGain(),a=1/Math.pow(k,engineParam(engine,'tilt'));
+     pg.gain.setValueAtTime(a,t);pg.gain.setTargetAtTime(Math.max(.0001,a*.08),t+.02,engineParam(engine,'decay')/Math.sqrt(k));pg.connect(g);v.nodes.push(pg);
+     osc('sine',hz,pg,1);
+   }
+ }else if(type==='wavefold'){
+   // Oversampled sine-folding with controlled pre-drive.
+   const drive=ctx.createGain(),fold=ctx.createWaveShaper(),curve=new Float32Array(2048);
+   for(let i=0;i<curve.length;i++){let x=i*2/(curve.length-1)-1;curve[i]=Math.sin(x*Math.PI*(.5+engineParam(engine,'fold')*3.5))}
+   fold.curve=curve;fold.oversample='2x';drive.gain.setValueAtTime(1+engineParam(engine,'env')*5,t);drive.gain.setTargetAtTime(1+engineParam(engine,'fold')*4,t+.02,engineParam(engine,'decay'));drive.connect(fold);fold.connect(g);v.nodes.push(drive,fold);
+   osc('triangle',f,drive,.75);osc('sine',f*2.01,drive,.15);
+ }else if(type==='string'){
+   // Short noise excitation into a damped delay feedback loop (Karplus–Strong).
+   const source=ctx.createBufferSource(),burst=ctx.createGain(),delay=ctx.createDelay(.25),damp=ctx.createBiquadFilter(),feedback=ctx.createGain();
+   source.buffer=excitation();source.loop=true;burst.gain.setValueAtTime(.7,t);burst.gain.linearRampToValueAtTime(0,t+engineParam(engine,'burst'));
+   delay.delayTime.value=clamp(1/f-.0003,.0005,.24);damp.type='lowpass';damp.frequency.value=clamp(f*(3+(1-engineParam(engine,'damp'))*12),350,16000);feedback.gain.value=engineParam(engine,'sustain');
+   source.connect(burst);burst.connect(delay);delay.connect(damp);damp.connect(feedback);feedback.connect(delay);delay.connect(g);
+   source.start(t);v.nodes.push(source,burst,delay,damp,feedback);
+   // No carrier exists for this non-oscillator engine; cross-matrix source still works.
+ }else if(type==='crossmod'){
+   // Carrier frequency modulation plus independent ring-modulated component.
+   const car=osc('sine',f,g,.65),mod=osc('sine',f*engineParam(engine,'ratio'),g,0),fm=ctx.createGain(),reverse=ctx.createGain();reverse.gain.value=f*engineParam(engine,'reverse');car.connect(reverse);reverse.connect(mod.frequency);v.nodes.push(reverse);
+   fm.gain.value=f*engineParam(engine,'forward');mod.connect(fm);fm.connect(car.frequency);v.nodes.push(fm);
+   const ring=ctx.createGain(),ringOsc=ctx.createOscillator(),ringDepth=ctx.createGain();
+   ring.gain.value=0;ringOsc.frequency.value=f*(1+Math.round(p*4));ringOsc.connect(ring.gain);car.connect(ring);ringDepth.gain.value=engineParam(engine,'ring');ring.connect(ringDepth);ringDepth.connect(g);ringOsc.start(t);v.nodes.push(ring,ringOsc,ringDepth);
+ }else if(type==='grain'){
+   const o=osc('triangle',f),lfo=ctx.createOscillator(),mg=ctx.createGain();lfo.frequency.value=10+p*65;mg.gain.value=f*(.03+p*.12);lfo.connect(mg);mg.connect(o.frequency);lfo.start(t);v.nodes.push(lfo,mg);
+ }else if(type==='resonator'){
+   osc('sine',f,g,.6);osc('sine',f*(2.01+p*1.9),g,.3);
+ }else if(type==='seed'){
+   osc('sine',f/2,g,.8);osc('triangle',f*(.25+p*.5),g,.35);
+ }
+ // Supplementary oscillator and frequency controls are independently usable on every model.
+ if(!nativeVA){
+   const sub=engineParam(engine,'sub');if(sub>.001)osc('sine',f/2,g,sub*.18);
+   const harm=engineParam(engine,'harmonic');if(harm>.001)osc(harmonicWave(k=>k<=8?1/k:0,8),f,g,harm*.16);
+   const spread=engineParam(engine,'detune');if(spread>.001){
+     const det=osc('triangle',f,g,.09,spread);
+     const slide=engineParam(engine,'slide');if(slide>.002){det.frequency.setValueAtTime(f*.96,t);det.frequency.exponentialRampToValueAtTime(f,t+slide)}
+   }
+ }
+ if(!nativeFM){
+   const carrier=v.crossCarriers[index];if(carrier){
+     const mod=ctx.createOscillator(),depth=ctx.createGain();mod.frequency.value=f*engineParam(engine,'ratio');
+     depth.gain.setValueAtTime(f*engineParam(engine,'index')*.12,t);
+     depth.gain.setTargetAtTime(.001,t+.04,engineParam(engine,'decay'));
+     mod.connect(depth);depth.connect(carrier.frequency);mod.start(t);v.nodes.push(mod,depth);
+   }
+ }
+
+}
+
+function voiceUpdate(v,locks={}){if(!ctx)return;let l=layers[v.layer],t=ctx.currentTime,elapsed=t-v.started;let getSrc=s=>{if(s<6){let o=l.lfos[s];let phase=elapsed*o.rate*2*Math.PI;return (o.shape==='triangle'?2/Math.PI*Math.asin(Math.sin(phase)):o.shape==='square'?Math.sign(Math.sin(phase)):Math.sin(phase))*o.depth}if(s<12){let e=l.envs[s-6];return elapsed<e.attack?elapsed/Math.max(.001,e.attack):e.sustain+(1-e.sustain)*Math.exp(-(elapsed-e.attack)/Math.max(.01,e.decay))}if(s===12)return v.velocity*2-1;if(s===13)return clamp((v.midi-60)/24,-1,1);if(s===14)return 1;if(s===15)return Math.sin(seqPos*Math.PI/8);return Math.sin((v.id+1)*73.9)};let modulation={};for(let r of l.routes){let key=modTargets[r.dst];modulation[key]=(modulation[key]||0)+getSrc(r.src)*r.depth}let get=(name,base,scale)=>name in locks?base*(.2+locks[name]*1.6):base+(modulation[name]||0)*scale;v.f1.frequency.setTargetAtTime(clamp(get('FILTER 1',l.filter1,5500)*(l.wavetableMode==='position'?(.4+1.2*l.wavetableMotion):1),40,18000),t,.035);v.f2.frequency.setTargetAtTime(clamp(get('FILTER 2',l.filter2,5500),40,18000),t,.035);let resEnv=getSrc(6),resLfo=getSrc(0),resMod=l.resEnvDepth*resEnv+l.resLfoDepth*resLfo;v.f1.Q.setTargetAtTime(clamp(get('RESONANCE',l.res,3)+resMod,.1,16),t,.035);v.f2.Q.setTargetAtTime(clamp(l.res*.65+resMod,.1,16),t,.035);if(v.combFeedbackNode)v.combFeedbackNode.gain.setTargetAtTime(clamp(l.combFeedback,0,.92),t,.035);v.pan.pan.setTargetAtTime(clamp(l.pan+(modulation.PAN||0)*.6+(('PAN' in locks)?(locks.PAN-.5):0),-1,1),t,.035);let pitch=(modulation.PITCH||0)*4+(('PITCH' in locks)?(locks.PITCH-.5)*24:0);for(let item of v.oscs){item.o.detune.setTargetAtTime(pitch*100+(item.cents||0),t,.035)}v.engineGains.forEach((g,i)=>{if(!g)return;let key='ENGINE '+(i+1),base=l.engines[i].level;g.gain.setTargetAtTime(clamp((key in locks?locks[key]:base+(modulation[key]||0)*.35)/6,0,.35),t,.035)})}
+
+// Consolidation 3: four selectable DSP macros in the dual-filter / former signal path.
+// Modulation sources are per voice, routed to real AudioParams, never display-only.
+function applyFilterMacros(v,l,f,t){
+ const mkLfo=(rate,shape='sine')=>{let o=ctx.createOscillator();o.type=shape;o.frequency.value=rate;o.start(t);v.nodes.push(o);return o};
+ if(l.fmRingMode!=='off'&&l.fmRingDepth>.001){
+   let o=mkLfo(f*(l.fmRingMode==='ring'?1.5:1.01));
+   if(l.fmRingMode==='ring'){
+     let ring=ctx.createGain(),wet=ctx.createGain();ring.gain.value=0;wet.gain.value=l.fmRingDepth*.35;
+     o.connect(ring.gain);v.pre.connect(ring);ring.connect(wet);wet.connect(v.f1);v.nodes.push(ring,wet);
+   }else{
+     let gain=ctx.createGain();gain.gain.value=f*l.fmRingDepth*(l.fmRingMode==='exponential'?.9:.25);
+     o.connect(gain);gain.connect(v.f1.detune);gain.connect(v.f2.detune);v.nodes.push(gain);
+   }
+ }
+ if(l.wavetableMode!=='off'&&l.wavetableMotion>.001){
+   if(l.wavetableMode==='position'){
+     let freq=clamp(l.filter1*(.4+1.2*l.wavetableMotion),80,18000);
+     v.f1.frequency.setValueAtTime(freq,t);
+   }else{
+     let scan=mkLfo(.15+2*l.wavetableMotion),depth=ctx.createGain();depth.gain.value=1600*l.wavetableMotion;
+     scan.connect(depth);depth.connect(v.f1.frequency);v.nodes.push(depth);
+   }
+ }
+ if(l.randomType!=='off'&&l.randomDepth>.001){
+   let n=4096,buf=ctx.createBuffer(1,n,4096),data=buf.getChannelData(0),prev=0,hold=0;
+   for(let i=0;i<n;i++){
+     let r=Math.random()*2-1;
+     switch(l.randomType){
+       case 'chaos':prev=1-2*prev*prev;break;
+       case 'probability':prev=Math.random()<.18?r:0;break;
+       case 'gate':prev=Math.random()<.35?1:-1;break;
+       case 'walk':prev=clamp(prev+r*.17,-1,1);break;
+       case 'smooth':prev=prev*.91+r*.09;break;
+       case 'binary':prev=r>0?1:-1;break;
+       case 'turing':prev=(i%8===0?hold=r>0?1:-1:hold);break;
+       case 'samplehold':prev=i%8===0?r:prev;break;
+       case 'voice':prev=Math.sin(i*.07+v.midi*.11)*.7;break;
+     }
+     data[i]=prev;
+   }
+   let source=ctx.createBufferSource(),depth=ctx.createGain();source.buffer=buf;source.loop=true;
+   depth.gain.value=clamp(l.randomDepth,0,1)*Math.min(1600,l.filter1*.4);
+   source.connect(depth);depth.connect(v.f1.frequency);source.start(t);v.nodes.push(source,depth);
+ }
+ if(l.retriggerMode!=='off'&&l.retriggerDepth>.001){
+   const rates={pulse:4,triplet:6,ratchet:12,swell:1.5,tremolo:7};
+   let o=mkLfo(rates[l.retriggerMode]||4,l.retriggerMode==='swell'?'sine':'square'),depth=ctx.createGain();
+   depth.gain.value=.3*l.retriggerDepth;
+   o.connect(depth);depth.connect(v.amp.gain);v.nodes.push(depth);
+ }
+}
+function noteOn(midi,tag='key',velocity=.8,locks={}){if(!ctx)return;let t=ctx.currentTime;for(let i=0;i<4;i++){let l=layers[i];if(!l.enabled)continue;if(voices.length>=MAX_VOICES){const oldest=voices.reduce((a,b)=>a.started<=b.started?a:b);release(oldest,true)}let f=440*2**((midi-69)/12),v={id:++voiceSerial,midi,tag,velocity,layer:i,started:t,nodes:[],oscs:[],engineGains:[],crossOutputs:[],crossCarriers:[],locks};let pre=ctx.createGain(),f1=ctx.createBiquadFilter(),f2=ctx.createBiquadFilter(),amp=ctx.createGain(),pan=ctx.createStereoPanner(),former=ctx.createWaveShaper();v.pre=pre;v.f1=f1;v.f2=f2;v.amp=amp;v.pan=pan;v.nodes.push(pre,f1,f2,amp,pan,former);f1.type=l.type1==='comb'?'lowpass':l.type1;f2.type=l.type2==='comb'?'lowpass':l.type2;f1.frequency.value=l.filter1;f2.frequency.value=l.filter2;f1.Q.value=l.res;f2.Q.value=l.res;pre.connect(f1);if(l.type1==='comb'||l.type2==='comb'){let cd=ctx.createDelay(.08),cf=ctx.createGain(),wet=ctx.createGain();cd.delayTime.value=.012;cf.gain.value=clamp(l.combFeedback,0,.92);wet.gain.value=.18;pre.connect(cd);cd.connect(cf);cf.connect(cd);cd.connect(wet);wet.connect(f1);v.nodes.push(cd,cf,wet);v.combFeedbackNode=cf}if(l.routing==='serial'){f1.connect(f2);f2.connect(former)}else{pre.connect(f2);f1.connect(former);f2.connect(former)}let curve=new Float32Array(1024);for(let j=0;j<1024;j++){let x=j/511.5-1;curve[j]=l.former==='drive'?Math.tanh(x*4):l.former==='bit'?Math.round(x*12)/12:l.former==='ring'?x*Math.sin(j*.1):l.former==='comb'?Math.tanh(x*2):l.former==='formant'?Math.tanh(x*3):x}former.curve=curve;former.connect(amp);amp.connect(pan);pan.connect(l.fxNode.input);let e={...l.envs[0]};if(tag.startsWith('seq')){const gateSeconds=60/clamp(+$('bpm').value||112,40,240)/4*clamp(Number(steps[seqPos]?.gate)||.7,.1,1)*.95;e.attack=Math.min(e.attack,Math.max(.008,gateSeconds*.45));e.decay=Math.min(e.decay,Math.max(.012,gateSeconds*.45))}v.envelope=e;v.peakGain=.24*l.volume*velocity/Math.sqrt(Math.max(1,layers.filter(x=>x.enabled).length));amp.gain.setValueAtTime(0,t);amp.gain.linearRampToValueAtTime(v.peakGain,t+Math.max(.008,e.attack));amp.gain.linearRampToValueAtTime(v.peakGain*e.sustain,t+Math.max(.008,e.attack)+e.decay);l.engines.forEach((eng,j)=>{let before=v.nodes.length;engineNode(v,eng,j,f,t);/* engineNode registers its own output gain for modulation */});applyFilterMacros(v,l,f,t);/* Full multidirectional audio-rate modulation. Reverse/self routes use a short
+ delay to break zero-latency cycles, with bounded modulation depth. */
+for(let src=0;src<6;src++)for(let dst=0;dst<6;dst++){
+ const amount=Number(l.cross?.[src]?.[dst])||0;
+ const source=v.crossOutputs[src],target=v.crossCarriers[dst];
+ if(Math.abs(amount)<.001||!source||!target)continue;
+ const depth=ctx.createGain();
+ // Keep cross-synthesis silent unless explicitly dialled in; soften each new
+ // note's modulation onset to prevent abrupt frequency discontinuities.
+ const safeAmount=clamp(amount,-1,1);
+ const modDepth=safeAmount*f*(src>=dst?.065:.22);
+ depth.gain.setValueAtTime(0,t);
+ depth.gain.linearRampToValueAtTime(modDepth,t+.018);
+ if(src>=dst){
+   const delay=ctx.createDelay(.1);
+   delay.delayTime.value=.003;
+   source.connect(delay);delay.connect(depth);
+   v.nodes.push(delay);
+ }else source.connect(depth);
+ depth.connect(target.frequency);v.nodes.push(depth);
+}
+voices.push(v);voiceUpdate(v,locks)}updateVoiceCount()}
+function release(v,immediate=false){let ix=voices.indexOf(v);if(ix<0)return;voices.splice(ix,1);let t=ctx.currentTime,r=immediate?.015:(v.tag.startsWith('seq')?Math.min(MAX_RELEASE_TAIL,(v.envelope||layers[v.layer].envs[0]).release):(v.envelope||layers[v.layer].envs[0]).release);const e=v.envelope||layers[v.layer].envs[0],age=Math.max(0,t-v.started),peak=v.peakGain||.1,attack=Math.max(.008,e.attack),decay=Math.max(.001,e.decay),level=age<attack?peak*age/attack:age<attack+decay?peak*(1-(1-e.sustain)*(age-attack)/decay):peak*e.sustain;v.amp.gain.cancelScheduledValues(t);v.amp.gain.setValueAtTime(Math.max(.0001,level),t);v.amp.gain.exponentialRampToValueAtTime(.0001,t+r);setTimeout(()=>{for(let n of v.nodes){try{if(typeof n.stop==='function')n.stop()}catch(e){}try{n.disconnect()}catch(e){}}},(r+.08)*1000);updateVoiceCount()}
+function noteOff(midi,tag='key'){for(let v of [...voices])if(v.midi===midi&&v.tag===tag)release(v)}function panic(){for(let v of [...voices])release(v,true);held.clear();document.querySelectorAll('.key.down').forEach(k=>k.classList.remove('down'))}function updateVoiceCount(){$('voiceCount').textContent=voices.length+' / 16 voices'}setInterval(()=>{if(ctx)for(let v of [...voices])voiceUpdate(v,v.locks)},45);
+function drawLayers(){let h=$('layers');h.innerHTML='';layers.forEach((l,i)=>{let d=document.createElement('div');d.className='layer'+(i===selected?' selected':'');d.innerHTML='<button class="btn '+(i===selected?'on':'')+'" data-edit="'+i+'">LAYER '+('ABCD'[i])+'</button><label><input type="checkbox" data-enable="'+i+'" '+(l.enabled?'checked':'')+'> ENABLE</label><label>LEVEL <input type="range" data-volume="'+i+'" min="0" max="1" step=".01" value="'+l.volume+'"></label><label>PAN <input type="range" data-pan="'+i+'" min="-1" max="1" step=".01" value="'+l.pan+'"></label><div class="layer-stereo" aria-label="Stereo output activity"><span>L</span><div class="layer-meter-track"><i data-meter-l="'+i+'"></i></div><span>R</span><div class="layer-meter-track"><i data-meter-r="'+i+'"></i></div></div><div class="mini">6 ENGINE SLOTS · 5 FX SLOTS</div>';h.append(d)});h.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>chooseLayer(+b.dataset.edit));h.querySelectorAll('[data-enable]').forEach(x=>x.onchange=()=>layers[+x.dataset.enable].enabled=x.checked);h.querySelectorAll('[data-volume]').forEach(x=>x.oninput=()=>layers[+x.dataset.volume].volume=+x.value);h.querySelectorAll('[data-pan]').forEach(x=>x.oninput=()=>{let l=layers[+x.dataset.pan];l.pan=+x.value;if(l.fxNode)l.fxNode.pan.pan.value=l.pan})}
+function chooseLayer(i){selected=i;$('editLayer').value=i;drawLayers();drawEngines();drawFilters();drawMods();drawRoutes();drawFX();drawCross()}const engineTypes=[['va','VIRTUAL ANALOGUE'],['wavetable','WAVETABLE'],['fm','FM / PHASE'],['grain','MICROGRAINS'],['resonator','RESONATOR'],['seed','SEEDS / SUB'],['additive','ADDITIVE / HARMONICS'],['feedbackfm','FEEDBACK FM'],['wavefold','WAVEFOLDER'],['string','PLUCKED STRING'],['crossmod','RING + CROSS FM']];function drawEngines(){let h=$('engines');h.innerHTML='';layers[selected].engines.forEach((e,i)=>{let d=document.createElement('div');d.className='engine';d.innerHTML='<h3>ENGINE '+(i+1)+'</h3><select data-type="'+i+'">'+engineTypes.map(([v,n])=>'<option value="'+v+'" '+(e.type===v?'selected':'')+'>'+n+'</option>').join('')+'</select><div class="engine-primary"><label>LEVEL <input type="range" data-level="'+i+'" min="0" max="1" step=".01" value="'+e.level+'"></label><label>CHARACTER <input type="range" data-param="'+i+'" min="0" max="1" step=".01" value="'+e.param+'"></label></div><div class="engine-parameters">'+sharedEngineControls.map(([k,label,min,max,def])=>'<label class="engine-control">'+label+' <output>'+engineParam(e,k).toFixed(3)+'</output><input type="range" data-engine="'+i+'" data-key="'+k+'" min="'+min+'" max="'+max+'" step="'+((max-min)/500)+'" value="'+engineParam(e,k)+'"></label>').join('')+'</div><div class="engine-model-extra">'+(engineControls[e.type]||[]).filter(([k])=>!sharedEngineControls.some(([key])=>key===k)).map(([k,label,min,max,def])=>'<label class="engine-control">'+label+' <output>'+engineParam(e,k).toFixed(3)+'</output><input type="range" data-engine="'+i+'" data-key="'+k+'" min="'+min+'" max="'+max+'" step="'+((max-min)/500)+'" value="'+engineParam(e,k)+'"></label>').join('')+'</div>';h.append(d)});h.querySelectorAll('[data-type]').forEach(x=>x.onchange=()=>{layers[selected].engines[+x.dataset.type].type=x.value;drawEngines()});h.querySelectorAll('[data-level]').forEach(x=>x.oninput=()=>layers[selected].engines[+x.dataset.level].level=+x.value);h.querySelectorAll('[data-param]').forEach(x=>x.oninput=()=>layers[selected].engines[+x.dataset.param].param=+x.value);h.querySelectorAll('[data-key]').forEach(x=>x.oninput=()=>{let e=layers[selected].engines[+x.dataset.engine];e.params=e.params||{};e.params[x.dataset.key]=+x.value;x.parentElement.querySelector('output').textContent=(+x.value).toFixed(3)})}
+const filterFields=[['filter1','FILTER 1',80,18000],['filter2','FILTER 2',80,18000],['res','RESONANCE',.1,14],['combFeedback','COMB FEEDBACK',0,.92],['resEnvDepth','ENV DEPTH',0,10],['resLfoDepth','LFO DEPTH',0,10],['fmRingDepth','FM / RING',0,1],['wavetableMotion','WAVETABLE',0,1],['randomDepth','RANDOM',0,1],['retriggerDepth','RETRIGGER',0,1]];function drawFilters(){let l=layers[selected],h=$('filterControls');h.innerHTML='';for(let [k,n,min,max] of filterFields){let d=document.createElement('div');d.className='control';d.innerHTML='<label>'+n+'</label><input type="range" min="'+min+'" max="'+max+'" step="'+(max<=14?'.01':'1')+'" value="'+l[k]+'"><output>'+(max<=14?Number(l[k]).toFixed(2):Math.round(l[k]))+'</output>';let x=d.querySelector('input');x.oninput=()=>{l[k]=+x.value;d.querySelector('output').textContent=max<=14?l[k].toFixed(2):Math.round(l[k])};h.append(d)}$('filterType1').value=l.type1;$('filterType2').value=l.type2;$('filterRouting').value=l.routing;$('former').value=l.former;for(const key of ['fmRingMode','wavetableMode','randomType','retriggerMode'])$(key).value=l[key]||'off'}for(let [id,k] of [['filterType1','type1'],['filterType2','type2'],['filterRouting','routing'],['former','former'],['fmRingMode','fmRingMode'],['wavetableMode','wavetableMode'],['randomType','randomType'],['retriggerMode','retriggerMode']])$(id).onchange=()=>layers[selected][k]=$(id).value;
+function drawMods(){let bank=$('modBank').value,idx=+$('modIndex').value||0,l=layers[selected],h=$('modControls');$('modIndex').innerHTML=Array.from({length:6},(_,i)=>'<option value="'+i+'">'+(i+1)+'</option>').join('');$('modIndex').value=idx;h.innerHTML='';let u=bank==='env'?l.envs[idx]:l.lfos[idx],fields=bank==='env'?[['attack','ATTACK',.002,4],['decay','DECAY',.01,4],['sustain','SUSTAIN',0,1],['release','RELEASE',.02,6]]:[['rate','RATE',.03,20],['depth','DEPTH',0,1]];for(let [k,n,min,max] of fields){let d=document.createElement('div');d.className='control';d.innerHTML='<label>'+n+'</label><input type="range" min="'+min+'" max="'+max+'" step=".01" value="'+u[k]+'"><output>'+u[k].toFixed(2)+'</output>';let x=d.querySelector('input');x.oninput=()=>{u[k]=+x.value;d.querySelector('output').textContent=u[k].toFixed(2)};h.append(d)}if(bank==='lfo'){let d=document.createElement('div');d.className='control';d.innerHTML='<label>SHAPE</label><select><option>sine</option><option>triangle</option><option>square</option></select>';d.querySelector('select').value=u.shape;d.querySelector('select').onchange=e=>u.shape=e.target.value;h.append(d)}}$('modBank').onchange=()=>{$('modIndex').value=0;drawMods()};$('modIndex').onchange=drawMods;
+function drawRoutes(){let l=layers[selected],h=$('routes');h.innerHTML='';l.routes.forEach((r,i)=>{let d=document.createElement('div');d.className='route';d.innerHTML='<select data-src></select><select data-dst></select><input type="range" min="-1" max="1" step=".01" value="'+r.depth+'"><button class="btn">×</button>';let src=d.querySelector('[data-src]'),dst=d.querySelector('[data-dst]');modSources.forEach((n,j)=>src.add(new Option(n,j)));modTargets.forEach((n,j)=>dst.add(new Option(n,j)));src.value=r.src;dst.value=r.dst;src.onchange=()=>r.src=+src.value;dst.onchange=()=>r.dst=+dst.value;d.querySelector('input').oninput=e=>r.depth=+e.target.value;d.querySelector('button').onclick=()=>{l.routes.splice(i,1);drawRoutes()};h.append(d)});$('routeCount').textContent=l.routes.length+' / 40 routes'}$('addRoute').onclick=()=>{let r=layers[selected].routes;if(r.length>=40)return alert('40 modulation slots per layer.');r.push({src:0,dst:0,depth:.4});drawRoutes()};$('clearRoutes').onclick=()=>{layers[selected].routes=[];drawRoutes()};
+function drawFX(){let h=$('fxslots');h.innerHTML='';layers[selected].fx.forEach((s,i)=>{let d=document.createElement('div');d.className='fxslot';d.innerHTML='<label>SLOT '+(i+1)+'</label><select><option value="off">BYPASS</option><option value="reverb">REVERB</option><option value="delay">DELAY</option><option value="chorus">CHORUS</option><option value="phaser">PHASER</option><option value="drive">DRIVE</option></select><label>MIX <input type="range" min="0" max="1" step=".01" value="'+s.mix+'"></label>';let sel=d.querySelector('select');sel.value=s.type;sel.onchange=()=>{s.type=sel.value;rebuildFX(selected)};d.querySelector('input').oninput=e=>{s.mix=+e.target.value;rebuildFX(selected)};h.append(d)})}
+function drawSteps(){let h=$('seqgrid');h.innerHTML='';steps.forEach((s,i)=>{let d=document.createElement('div');d.className='seqcell';d.innerHTML='<small>'+(i+1)+'</small><button class="step '+(s.notes.length?'on':'')+(i===selectedStep?' selected':'')+(seqTimer&&i===(seqPos+63)%64?' play':'')+'">'+(s.notes.length?s.notes.length+'♪':'·')+'</button>';let b=d.querySelector('button');b.onclick=()=>selectStep(i);b.ondblclick=()=>{s.notes=s.notes.length?[]:[0];drawSteps()};h.append(d)})}function selectStep(i){selectedStep=i;let s=steps[i];$('stepNumber').value=i+1;$('stepNotes').value=s.notes.join(',');$('stepGate').value=s.gate;updateLockCount();drawSteps()}function updateLockCount(){$('lockCount').textContent=Object.keys(steps[selectedStep].locks).length+' / 16 locks'}$('stepNumber').onchange=()=>selectStep(clamp(+$('stepNumber').value-1,0,63));$('applyStep').onclick=()=>{let s=steps[selectedStep];s.notes=$('stepNotes').value.split(',').map(x=>+x.trim()).filter(x=>Number.isFinite(x)&&x>=-24&&x<=36).slice(0,8);s.gate=+$('stepGate').value;drawSteps()};$('restStep').onclick=()=>{steps[selectedStep].notes=[];drawSteps()};$('seqClear').onclick=()=>{steps.forEach(s=>{s.notes=[];s.locks={}});selectStep(selectedStep)};$('seqRandom').onclick=()=>{steps.forEach(s=>{s.notes=Math.random()<.28?[]:[Math.floor(Math.random()*12)];s.locks={}});selectStep(selectedStep)};lockParams.forEach((n,i)=>$('lockParam').add(new Option(n,i)));$('setLock').onclick=()=>{let s=steps[selectedStep];if(Object.keys(s.locks).length>=16&&!($('lockParam').selectedOptions[0].text in s.locks))return alert('Maximum 16 locks per step');s.locks[$('lockParam').selectedOptions[0].text]=+$('lockValue').value;updateLockCount()};$('clearLocks').onclick=()=>{steps[selectedStep].locks={};updateLockCount()};
+function seqTick(){let len=+$('seqLength').value,s=steps[seqPos];if(s.notes.length){let root=+$('root').value,tag='seq'+seqPos;for(let interval of s.notes){let midi=root+interval;noteOn(midi,tag,.8,s.locks);setTimeout(()=>noteOff(midi,tag),60000/(+$('bpm').value||112)/4*s.gate*.95)}}seqPos=(seqPos+1)%len;drawSteps()}function stopSeq(){if(seqTimer){clearInterval(seqTimer);seqTimer=null;$('seqPlay').textContent='PLAY';drawSteps()}}$('seqPlay').onclick=async()=>{if(seqTimer){stopSeq();return}await activate();seqPos=0;seqTick();seqTimer=setInterval(seqTick,60000/clamp(+$('bpm').value||112,40,240)/4);$('seqPlay').textContent='STOP'};$('bpm').onchange=()=>{if(seqTimer){clearInterval(seqTimer);seqTimer=setInterval(seqTick,60000/clamp(+$('bpm').value||112,40,240)/4)}};
+function arpTick(){if(!ctx||seqTimer||$('arpMode').value==='off'||!held.size)return;let notes=[...new Set([...held.values()])].sort((a,b)=>a-b),mode=$('arpMode').value,order=mode==='down'?[...notes].reverse():mode==='updown'?[...notes,...notes.slice(1,-1).reverse()]:notes,m=mode==='random'?notes[Math.floor(Math.random()*notes.length)]:order[arpIndex++%order.length];noteOn(m,'arp',.7);setTimeout(()=>noteOff(m,'arp'),120)}setInterval(arpTick,170);function keyDown(m,tag){activate().then(()=>{held.set(tag,m);if($('arpMode').value==='off')noteOn(m,tag)})}function keyUp(tag){let m=held.get(tag);if(m===undefined)return;if(!$('hold').checked){held.delete(tag);noteOff(m,tag)}}
+let kb=$('keyboard'),white=[];for(let m=48;m<84;m++){if(![1,3,6,8,10].includes(m%12))white.push(m)}for(let m of white){let d=document.createElement('div');d.className='key';d.dataset.m=m;kb.append(d)}for(let m=48;m<84;m++){if(![1,3,6,8,10].includes(m%12))continue;let before=white.filter(x=>x<m).length,d=document.createElement('div');d.className='key black';d.style.left=before/white.length*100+'%';d.dataset.m=m;kb.append(d)}kb.addEventListener('pointerdown',e=>{let el=e.target.closest('.key');if(!el)return;e.preventDefault();kb.setPointerCapture(e.pointerId);let m=+el.dataset.m+(+$('octave').value-48),tag='ptr'+e.pointerId;pointerHeld.set(e.pointerId,{m,el,tag});el.classList.add('down');keyDown(m,tag)});for(let evt of ['pointerup','pointercancel'])kb.addEventListener(evt,e=>{let x=pointerHeld.get(e.pointerId);if(x){keyUp(x.tag);x.el.classList.remove('down');pointerHeld.delete(e.pointerId)}});let keymap={a:0,w:1,s:2,e:3,d:4,f:5,t:6,g:7,y:8,h:9,u:10,j:11,k:12},down=new Set();document.addEventListener('keydown',e=>{if(e.repeat||e.target.matches('input,select,textarea'))return;let k=e.key.toLowerCase();if(!(k in keymap)||down.has(k))return;down.add(k);keyDown(+$('octave').value+keymap[k],'kbd'+k)});document.addEventListener('keyup',e=>{let k=e.key.toLowerCase();if(down.has(k)){down.delete(k);keyUp('kbd'+k)}});$('panic').onclick=panic;$('activate').onclick=activate;$('master').oninput=setAudio;
+const descriptors=['CRYSTAL','OBSIDIAN','SILVER','CELESTIAL','DARK','SOLAR','LUNAR','GLASS','NEBULA','POLAR','AURORA','ION','QUARTZ','ORBIT','METALLIC','ETHER'];const families=['PAD','BASS','PLUCK','BELL'];const presets=[];for(let a=0;a<16;a++)for(let b=0;b<4;b++)presets.push({name:descriptors[a]+' '+families[b],seed:a*4+b,family:b});function factoryPatch(p){panic();let a=p.seed,b=p.family;const nextLayers=Array.from({length:4},makeLayer);replaceLayers(nextLayers);layers.forEach((l,i)=>l.enabled=i===0);let l=layers[0];l.engines.forEach((e,i)=>{e.level=clamp((.14+((a*7+i*3)%11)/22)*(i===b?.95:.65),0,.8);e.param=((a*13+i*17)%97)/100});l.engines[0].level=b===1?.7:.24;l.engines[1].level=b===0?.6:.16;l.engines[2].level=b===3?.6:.12;l.engines[4].level=b===2?.48:.12;l.filter1=b===1?350+a*55:b===0?1500+a*470:2800+a*600;l.res=.8+(a%5)*.6;l.envs[0]={attack:b===0?.4+a*.035:.006,decay:b===3?1.2:.16+(a%5)*.08,sustain:b===0?.8:b===1?.65:.12,release:b===0?2.2:b===3?1.4:.3};l.fx[2].mix=b===0?.35:.14;l.fx[1].mix=b===3?.22:.09;if(ctx)rebuildFX(0);$('patchName').value=p.name;chooseLayer(0);message(p.name,'FACTORY PATCH '+(p.seed+1)+' / 64')}
+presets.forEach((p,i)=>$('presets').add(new Option(String(i+1).padStart(2,'0')+' · '+p.name,i)));$('recall').onclick=()=>factoryPatch(presets[+$('presets').value]);function snapshot(){return {format:'Continuum Tessellation Alpha Rhodium V2 Expanded Controls',name:$('patchName').value,layers:layers.map(l=>{let {fxNode,...data}=l;return JSON.parse(JSON.stringify(data))}),steps:JSON.parse(JSON.stringify(steps)),bpm:+$('bpm').value,seqLength:+$('seqLength').value}}function restore(p){if(!p||!Array.isArray(p.layers)||p.layers.length!==4)return alert('Not a compatible four-layer patch');panic();const nextLayers=p.layers.map(raw=>{let l=makeLayer();for(let k of ['enabled','volume','pan','filter1','filter2','res','combFeedback','resEnvDepth','resLfoDepth','fmRingDepth','wavetableMotion','randomDepth','retriggerDepth','fmRingMode','wavetableMode','randomType','retriggerMode','type1','type2','routing','former'])if(raw[k]!==undefined)l[k]=raw[k];if(Array.isArray(raw.cross)&&raw.cross.length===6)l.cross=raw.cross.map((row,i)=>Array.from({length:6},(_,j)=>clamp(Number(row?.[j])||0,-1,1)));for(let k of ['engines','envs','lfos','routes','fx'])if(Array.isArray(raw[k]))l[k]=raw[k].slice(0,k==='routes'?40:k==='fx'?5:6);return l});replaceLayers(nextLayers);if(Array.isArray(p.steps)&&p.steps.length===64)steps=p.steps.map(s=>({notes:Array.isArray(s.notes)?s.notes.slice(0,8):[],gate:clamp(+s.gate||.7,.1,1),locks:s.locks&&typeof s.locks==='object'?s.locks:{}}));$('patchName').value=p.name||'IMPORTED';$('bpm').value=clamp(+p.bpm||112,40,240);$('seqLength').value=[16,32,64].includes(+p.seqLength)?p.seqLength:64;chooseLayer(0);selectStep(0);message('PATCH LOADED',$('patchName').value)}$('save').onclick=()=>{try{localStorage.setItem('continuum_tessellation_alpha04',JSON.stringify(snapshot()));message('PATCH SAVED','BROWSER LOCAL MEMORY')}catch(e){alert('Local storage unavailable; export JSON instead')}};$('load').onclick=()=>{let p=localStorage.getItem('continuum_tessellation_alpha04');if(p)restore(JSON.parse(p));else alert('No locally saved patch')};$('export').onclick=()=>{let blob=new Blob([JSON.stringify(snapshot(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='continuum-tessellation-patch.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('import').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{try{let f=e.target.files[0];if(f)restore(JSON.parse(await f.text()))}catch(err){alert('Could not import: '+err.message)}e.target.value=''};document.addEventListener('visibilitychange',()=>{if(document.hidden)panic()});drawLayers();chooseLayer(0);drawSteps();updateLockCount();message('T006 · TESSELLATION INIT','READY · ACTIVATE AUDIO');
+
+function drawCross(){
+ const h=$('crossMatrix');if(!h)return;h.innerHTML='';const l=layers[selected];
+ const cell=(tag,txt)=>{const e=document.createElement(tag);e.textContent=txt;e.style.cssText='font-size:10px;text-align:center;padding:5px;min-width:0';h.append(e);return e};
+ cell('div','SOURCE ↓ / TARGET →');for(let j=0;j<6;j++)cell('strong','E'+(j+1));
+ for(let i=0;i<6;i++){cell('strong','ENGINE '+(i+1));for(let j=0;j<6;j++){
+  const feedback=j<=i,d=document.createElement('div');
+  d.className='cross-cell'+(feedback?' feedback-cell':'');
+  d.title=feedback?(i===j?'Self feedback · delayed, depth-limited':'Reverse feedback · delayed, depth-limited'):'Forward audio-rate modulation';
+  const input=document.createElement('input');input.type='range';input.min='-1';input.max='1';input.step='.025';input.value=l.cross[i][j]||0;
+  const label=document.createElement('small');label.textContent=Number(input.value).toFixed(2);
+  input.oninput=()=>{l.cross[i][j]=Number(input.value);label.textContent=Number(input.value).toFixed(2);crossStatus()};
+  d.append(input,label);h.append(d);
+ }}crossStatus();
+}
+function crossStatus(){let l=layers[selected],n=0,f=0;for(let i=0;i<6;i++)for(let j=0;j<6;j++)if(Math.abs(l.cross[i][j]||0)>.001){n++;if(j<=i)f++} $('crossStatus').textContent=n+' / 36 active audio-rate routes · '+f+' feedback · new notes use current settings'}
+</script></body></html>
