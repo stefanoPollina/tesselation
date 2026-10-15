@@ -375,4 +375,69 @@ function drawCross(){
  }}crossStatus();
 }
 function crossStatus(){let l=layers[selected],n=0,f=0;for(let i=0;i<6;i++)for(let j=0;j<6;j++)if(Math.abs(l.cross[i][j]||0)>.001){n++;if(j<=i)f++} $('crossStatus').textContent=n+' / 36 active audio-rate routes · '+f+' feedback · new notes use current settings'}
-</script></body></html>
+</script><script>
+/* ===== TESSELLATION SIGNAL-CHAIN FIXES — CONSOLIDATION 08 ===== */
+(function(){
+const CFG={layerGain:10,crossGain:3,openLegacyFilters:true};
+let irBuf=null,irCtx=null;
+impulse=function(){if(irBuf&&irCtx===ctx)return irBuf;const len=Math.floor(ctx.sampleRate*1.6),b=ctx.createBuffer(2,len,ctx.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3)}irBuf=b;irCtx=ctx;return b};
+makeFX=function(type,mix){
+ const input=ctx.createGain(),output=ctx.createGain(),nodes=[input,output];
+ if(!['delay','reverb','drive','chorus','phaser'].includes(type)){input.connect(output);return{input,output,nodes}}
+ const dry=ctx.createGain(),wet=ctx.createGain();dry.gain.value=1-mix;wet.gain.value=mix;input.connect(dry);dry.connect(output);nodes.push(dry,wet);
+ let effect;
+ if(type==='delay'){const d=ctx.createDelay(1.5),fb=ctx.createGain();d.delayTime.value=.32;fb.gain.value=.27;input.connect(d);d.connect(fb);fb.connect(d);effect=d;nodes.push(d,fb)}
+ else if(type==='reverb'){effect=ctx.createConvolver();effect.buffer=impulse();input.connect(effect);nodes.push(effect)}
+ else if(type==='drive'){effect=ctx.createWaveShaper();const c=new Float32Array(2048);for(let i=0;i<c.length;i++)c[i]=Math.tanh((i/(c.length-1)*2-1)*4);effect.curve=c;effect.oversample='2x';input.connect(effect);nodes.push(effect)}
+ else{const ch=type==='chorus';effect=ch?ctx.createDelay(.08):ctx.createBiquadFilter();if(ch)effect.delayTime.value=.019;else{effect.type='allpass';effect.frequency.value=900;effect.Q.value=.8}input.connect(effect);const lfo=ctx.createOscillator(),g=ctx.createGain();lfo.frequency.value=ch?.8:.4;g.gain.value=ch?.008:500;lfo.connect(g);g.connect(ch?effect.delayTime:effect.frequency);lfo.start();nodes.push(effect,lfo,g)}
+ effect.connect(wet);wet.connect(output);return{input,output,nodes}};
+function buildFX(i){
+ const l=layers[i],old=l.fxNode;let input,split,mL,mR;
+ if(old&&old.persist){input=old.input;split=old.split;mL=old.meterL;mR=old.meterR}
+ else{input=ctx.createGain();split=ctx.createChannelSplitter(2);mL=ctx.createAnalyser();mR=ctx.createAnalyser();mL.fftSize=256;mR.fftSize=256;split.connect(mL,0);split.connect(mR,1)}
+ const entry=ctx.createGain(),exit=ctx.createGain(),nodes=[entry,exit];let last=entry;
+ for(const s of l.fx){const e=makeFX(s.type,s.mix);last.connect(e.input);last=e.output;nodes.push(...e.nodes)}
+ last.connect(exit);exit.connect(master);exit.connect(split);
+ const now=ctx.currentTime;
+ if(old&&old.chain){entry.gain.setValueAtTime(0,now);entry.gain.setTargetAtTime(CFG.layerGain,now,.012)}else entry.gain.value=CFG.layerGain;
+ input.connect(entry);
+ if(old&&old.chain){const oc=old.chain;oc.exit.gain.setTargetAtTime(0,now,.012);setTimeout(()=>{try{input.disconnect(oc.entry)}catch(e){}for(const n of oc.nodes){try{if(n.stop)n.stop()}catch(e){}try{n.disconnect()}catch(e){}}},200)}
+ l.fxNode={persist:true,input,split,meterL:mL,meterR:mR,pan:{pan:{value:0}},chain:{entry,exit,nodes},nodes:[input,split,mL,mR,...nodes]};
+}
+const fxTimers={};
+rebuildFX=function(i){if(!ctx||!layers[i])return;if(!layers[i].fxNode){buildFX(i);return}clearTimeout(fxTimers[i]);fxTimers[i]=setTimeout(()=>{if(ctx&&layers[i])buildFX(i)},80)};
+const baseActivate=activate;
+activate=async function(){const first=!ctx;await baseActivate();if(first&&ctx&&!ctx.__tessFixed){ctx.__tessFixed=true;
+ const cb=ctx.createBuffer.bind(ctx);ctx.createBuffer=(c,n,r)=>cb(c,n,Math.max(8000,r));
+ master.disconnect();compressor.disconnect();
+ const hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=18;hp.Q.value=.5;
+ compressor.threshold.value=-18;compressor.knee.value=10;compressor.ratio.value=6;compressor.attack.value=.004;compressor.release.value=.2;
+ const lim=ctx.createDynamicsCompressor();lim.threshold.value=-2;lim.knee.value=0;lim.ratio.value=20;lim.attack.value=.001;lim.release.value=.08;
+ master.connect(hp);hp.connect(compressor);compressor.connect(lim);lim.connect(analyser);}};
+document.getElementById('activate').onclick=activate;
+const baseEngineNode=engineNode;
+engineNode=function(v,engine,index,f,t){if(engine.level<=.001)return;if(engine.type==='string')stringEngine(v,engine,index,f,t);else baseEngineNode(v,engine,index,f,t);const g=v.crossOutputs[index];if(g){const tap=ctx.createGain();tap.gain.value=CFG.crossGain*6/Math.max(.02,engine.level);g.connect(tap);v.nodes.push(tap);v.crossOutputs[index]=tap}};
+const ksCache=new Map();
+function ksBuffer(f,damp,sustain,burst){
+ const key=[Math.round(f*10),damp.toFixed(2),sustain.toFixed(3),burst.toFixed(3),ctx.sampleRate].join('|');if(ksCache.has(key))return ksCache.get(key);
+ const sr=ctx.sampleRate,gain=Math.min(.9995,sustain),c=1-.75*damp;
+ const secs=Math.min(4,Math.max(.4,Math.log(.001)/Math.log(gain)/f)),len=Math.floor(secs*sr);
+ const P=Math.max(2,sr/f-(1-c)/c),N=Math.ceil(P)+3,line=new Float32Array(N),bs=Math.min(N,Math.max(4,Math.floor(burst*sr)));
+ for(let i=0;i<bs;i++)line[i]=Math.random()*2-1;
+ const out=new Float32Array(len);let w=0,s=0,peak=1e-6;
+ for(let n=0;n<len;n++){let rp=w-P;if(rp<0)rp+=N;const i0=Math.floor(rp),i1=(i0+1)%N,fr=rp-i0,y=line[i0]*(1-fr)+line[i1]*fr;s=c*y+(1-c)*s;line[w]=s*gain;out[n]=y;if(Math.abs(y)>peak)peak=Math.abs(y);w=(w+1)%N}
+ const k=.9/peak,fade=Math.min(len,Math.floor(.05*sr));for(let n=0;n<len;n++)out[n]*=k*(n>len-fade?(len-n)/fade:1);
+ const b=ctx.createBuffer(1,len,sr);b.copyToChannel(out,0);ksCache.set(key,b);if(ksCache.size>64)ksCache.delete(ksCache.keys().next().value);return b}
+function stringEngine(v,engine,index,f,t){
+ const g=ctx.createGain();g.gain.value=engine.level/6;v.nodes.push(g);v.crossOutputs[index]=g;v.engineGains[index]=g;
+ const acid=ctx.createBiquadFilter();acid.type='lowpass';acid.frequency.value=clamp(engineParam(engine,'filter'),100,12000);acid.Q.value=engineParam(engine,'res');g.connect(acid);acid.connect(v.pre);v.nodes.push(acid);
+ const src=ctx.createBufferSource();src.buffer=ksBuffer(f,clamp(engineParam(engine,'damp'),0,1),engineParam(engine,'sustain'),engineParam(engine,'burst'));src.connect(g);src.start(t);v.nodes.push(src);v.oscs.push({o:src,engine:index,factor:1,cents:0});
+}
+const baseMacros=applyFilterMacros;
+applyFilterMacros=function(v,l,f,t){const rd=l.retriggerDepth;l.retriggerDepth=0;try{baseMacros(v,l,f,t)}finally{l.retriggerDepth=rd}if(l.retriggerMode!=='off'&&rd>.001){const rates={pulse:4,triplet:6,ratchet:12,swell:1.5,tremolo:7},o=ctx.createOscillator(),d=ctx.createGain();o.type=l.retriggerMode==='swell'?'sine':'square';o.frequency.value=rates[l.retriggerMode]||4;d.gain.value=(v.peakGain||.1)*Math.min(.5,((v.envelope&&v.envelope.sustain)??.6)*.9)*rd;o.connect(d);d.connect(v.amp.gain);o.start(t);v.nodes.push(o,d)}};
+if(CFG.openLegacyFilters){const baseParam=engineParam;engineParam=function(e,k){if(e.type!=='va'&&!(e.params&&Number.isFinite(e.params[k]))){if(k==='filter')return 12000;if(k==='res')return .7}return baseParam(e,k)}}
+if(ctx)layers.forEach((_,i)=>buildFX(i));
+})();
+
+</script>
+</body></html>
